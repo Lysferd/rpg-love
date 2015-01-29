@@ -1,12 +1,12 @@
---[[---------------------------------------------------------------------------
-
-  Box v0.1
-    By Lysferd
+--[[
+===============================================================================
+ ** Box v1.0 **
+  By Lysferd (C) 2015
   
   `Box' is the basic object for any kind of window.
   A Box window is actually made by 9 parts: 4 corners, 4 sides and 1 fill.
-  
---]]---------------------------------------------------------------------------
+===============================================================================
+--]]
 
 Box = { }
 Box.__index = Box
@@ -88,7 +88,7 @@ end
 ---------------------------------------------------------------------
 function Box:refresh()
   love.graphics.setCanvas( self.canvas )
-  love.graphics.setBlendMode('alpha')
+  love.graphics.setBlendMode( 'alpha' )
   
   love.graphics.draw( self.box_skin,   self.upper_left_corner_quad,                         0,                         0 )
   love.graphics.draw( self.box_skin,  self.upper_right_corner_quad, self.std_w - self.piece_w,                         0 )

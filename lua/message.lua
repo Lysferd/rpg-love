@@ -1,7 +1,7 @@
 --[[
 ===============================================================================
  ** Message v1.1 **
-  By Lysferd (C) 2014
+  By Lysferd (C) 2015
  
  Summary:
   The standard message box.
@@ -24,8 +24,7 @@ Message = { }
 Message.__index = Message
 
 function Message.new()
-  local obj = { }
-  setmetatable( obj, Message )
+  local obj = setmetatable( { }, Message )
 
   local w, h = 480, 86
   local x, y = WINDOW_WIDTH / 2, WINDOW_HEIGHT - h

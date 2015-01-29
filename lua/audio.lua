@@ -1,0 +1,1 @@
+--[[=============================================================================== ** Audio v1.0 **  By Lysferd (C) 2015===============================================================================--]]Audio = {  se = {    cursor   = love.audio.newSource( 'audio/se/cursor.ogg', static ),    decision = love.audio.newSource( 'audio/se/decision.ogg', static )  }}
