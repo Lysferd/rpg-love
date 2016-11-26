@@ -16,7 +16,7 @@
 ===============================================================================
 --]]
 
-require( 'lua.sprite' )
+require( 'lua.map.sprite' )
 
 ---------------------------------------------------------------------
 -- * Declare Player.
@@ -28,35 +28,39 @@ function Player.new()
   local obj = { }
   setmetatable( obj, Player )
   
-  obj.sprite = Sprite.new( 'graphics/char2.png' )
+  obj.sprite = Sprite.new( 'graphics/PEdoinu01.png' )
   
   return obj
 end
 
 ---------------------------------------------------------------------
 -- * Frame update.
+-- Horizontal/Vertical movement is interpreted in separated blocks
+-- in order to allow diagonal movement.
 ---------------------------------------------------------------------
 function Player:update()
   if love.keyboard.isDown( 'w', 's', 'a', 'd' ) then
     self.sprite.sprinting = love.keyboard.isDown( 'lshift' )
     
     if love.keyboard.isDown( 'w' ) then
-      if love.keyboard.isDown( 'a' ) then
-        self.sprite:move( 'upper_left' )
-      elseif love.keyboard.isDown( 'd' ) then
-        self.sprite:move( 'upper_right' )
-      else
+      -- if love.keyboard.isDown( 'a' ) then
+      --   self.sprite:move( 'upper_left' )
+      -- elseif love.keyboard.isDown( 'd' ) then
+      --   self.sprite:move( 'upper_right' )
+      -- else
         self.sprite:move( 'up' )
-      end
+      -- end
     elseif love.keyboard.isDown( 's' ) then
-      if love.keyboard.isDown( 'a' ) then
-        self.sprite:move( 'bottom_left' )
-      elseif love.keyboard.isDown( 'd' ) then
-        self.sprite:move( 'bottom_right' )
-      else
+      -- if love.keyboard.isDown( 'a' ) then
+      --   self.sprite:move( 'bottom_left' )
+      -- elseif love.keyboard.isDown( 'd' ) then
+      --   self.sprite:move( 'bottom_right' )
+      -- else
         self.sprite:move( 'down' )
-      end
-    elseif love.keyboard.isDown( 'a' ) then
+      -- end
+    end
+
+    if love.keyboard.isDown( 'a' ) then
       self.sprite:move( 'left' )
     elseif love.keyboard.isDown( 'd' ) then
       self.sprite:move( 'right' )

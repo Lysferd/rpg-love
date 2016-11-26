@@ -38,7 +38,7 @@ function Sprite.new( filename )
   obj.ow = obj.bitmap:getWidth()
   obj.oh = obj.bitmap:getHeight()
   obj.w  = obj.ow / 3
-  obj.h  = obj.oh / 8
+  obj.h  = obj.oh / 4 -- 8 if with diagonal sprite
   
   --
   -- Initialise flow control variables.
@@ -54,20 +54,24 @@ function Sprite.new( filename )
   obj.anime_frame  = 0      -- start frame count at 0
   obj.total_frames = 3      -- maximum animation frames
   
-  obj.move_freq   = 10     -- 1 step each 10 frames
+  obj.move_freq   = 5      -- 1 step each 5 frames
   obj.move_vel    = 1      -- 1 pixel per step
   
   obj.step_frame  = 1      -- current frame in the step animation
   obj.last_step   = 0      -- last frame in the step animation
   obj.direction   = 'down' -- Sprite current direction
-  obj.turn_rule   = { bottom_left  = 0,
+  obj.turn_rule   = { down  = 0,
+                      left  = 1,
+                      right = 2,
+                      up    = 3
+                      --[[bottom_left  = 0,
                       down         = 1,
                       bottom_right = 2,
                       left         = 3,
                       right        = 4,
                       upper_left   = 5,
                       up           = 6,
-                      upper_right  = 7 }
+                      upper_right  = 7 ]] }
   
   obj.quad = love.graphics.newQuad( 32 * obj.step_frame,
                                 32 * obj.turn_rule[obj.direction],
@@ -126,29 +130,29 @@ end
 ---------------------------------------------------------------------
 function Sprite:move( direction )
   self:turn( direction )
-  local multiplier = 1
-  if self.sprinting then multiplier = 2 end
+  local speed = 1
+  if self.sprinting then speed = 2 end
   
   if direction == 'up' then
-    self.y = self.y - 1 * multiplier
+    self.y = self.y - 1 * speed
   elseif direction == 'down' then
-    self.y = self.y + 1 * multiplier
+    self.y = self.y + 1 * speed
   elseif direction == 'left' then
-    self.x = self.x - 1 * multiplier
+    self.x = self.x - 1 * speed
   elseif direction == 'right' then
-    self.x = self.x + 1 * multiplier
+    self.x = self.x + 1 * speed
   elseif direction == 'bottom_left' then
-    self.x = self.x - 1 * multiplier
-    self.y = self.y + 1 * multiplier
+    self.x = self.x - 1 * speed
+    self.y = self.y + 1 * speed
   elseif direction == 'bottom_right' then
-    self.x = self.x + 1 * multiplier
-    self.y = self.y + 1 * multiplier
+    self.x = self.x + 1 * speed
+    self.y = self.y + 1 * speed
   elseif direction == 'upper_left' then
-    self.x = self.x - 1 * multiplier
-    self.y = self.y - 1 * multiplier
+    self.x = self.x - 1 * speed
+    self.y = self.y - 1 * speed
   elseif direction == 'upper_right' then
-    self.x = self.x + 1 * multiplier
-    self.y = self.y - 1 * multiplier
+    self.x = self.x + 1 * speed
+    self.y = self.y - 1 * speed
   end
 end
 
@@ -166,10 +170,10 @@ end
 -- * Animate Sprite walking.
 ---------------------------------------------------------------------
 function Sprite:animate()
-  local multiplier = 1
-  if self.sprinting then multiplier = 2 end
+  local speed = 1
+  if self.sprinting then speed = 2 end
   
-  if self.animate then self.anime_frame = self.anime_frame + self.move_vel * multiplier end
+  if self.animate then self.anime_frame = self.anime_frame + self.move_vel * speed end
   
   if self.anime_frame >= self.move_freq then
     if self.step_frame == 1 then

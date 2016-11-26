@@ -77,14 +77,14 @@ end
 -- * Frame update.
 ---------------------------------------------------------------------
 function Box:draw()
-  love.graphics.setBlendMode('premultiplied')
+  love.graphics.setBlendMode('alpha', 'premultiplied')
   love.graphics.draw( self.canvas, self.std_x, self.std_y, 0, self.zoom, self.zoom, self.std_w / 2, self.std_h / 2 )
   love.graphics.setBlendMode('alpha')
 end
 
 
 ---------------------------------------------------------------------
--- * Frame update.
+-- * Redraw box.
 ---------------------------------------------------------------------
 function Box:refresh()
   love.graphics.setCanvas( self.canvas )
@@ -107,7 +107,7 @@ end
 
 
 ---------------------------------------------------------------------
--- * Frame update.
+-- * Redraw quad graphics.
 ---------------------------------------------------------------------
 function Box:refresh_quads()
   -- Corners:
@@ -134,7 +134,7 @@ end
 
 
 ---------------------------------------------------------------------
--- * Frame update.
+-- * Open box.
 ---------------------------------------------------------------------
 function Box:open_box()
   self.opening = true
@@ -144,7 +144,7 @@ end
 
 
 ---------------------------------------------------------------------
--- * Frame update.
+-- * Close box.
 ---------------------------------------------------------------------
 function Box:close_box()
   self.closing = true
@@ -154,7 +154,7 @@ end
 
 
 ---------------------------------------------------------------------
--- * Frame update.
+-- * Get box x-axis position value.
 ---------------------------------------------------------------------
 function Box:x()
   return self.std_x
@@ -162,7 +162,7 @@ end
 
 
 ---------------------------------------------------------------------
--- * Frame update.
+-- * Get box y-axis position value.
 ---------------------------------------------------------------------
 function Box:y()
   return self.std_y
